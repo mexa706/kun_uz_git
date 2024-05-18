@@ -5,6 +5,7 @@ import org.example.kun_uzz.DTO.RegionCreateDTO;
 import org.example.kun_uzz.DTO.RegionDTO;
 import org.example.kun_uzz.Entity.RegionEntity;
 import org.example.kun_uzz.Enums.Language;
+import org.example.kun_uzz.exp.AppBadException;
 import org.example.kun_uzz.mapper.RegionMapper;
 import org.example.kun_uzz.repository.RegionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,23 @@ public class RegionService {
         entity.setName_en(dto.getNameEn());
 
         regionRepository.save(entity);
-        return RegionMapper.toDTO(entity);
+        return toDTO(entity);
+    }
+
+    public Boolean update(Integer id, RegionCreateDTO dto) {
+        RegionEntity entity = get(id);
+        entity.setOrderNumber(dto.getOrderNumber());
+        entity.setName_uz(dto.getNameUz());
+        entity.setName_ru(dto.getNameRu());
+        entity.setName_en(dto.getNameEn());
+        regionRepository.save(entity);
+        return true;
+    }
+
+    public RegionEntity get(Integer id) {
+        return regionRepository.findById(id).orElseThrow(() -> {
+            throw new AppBadException("Region not found");
+        });
     }
 
 
@@ -35,7 +52,7 @@ public class RegionService {
         Iterable<RegionEntity> regions = regionRepository.findAll();
         List<RegionDTO> list = new ArrayList<>();
         for (RegionEntity region : regions) {
-            list.add(RegionMapper.toDTO(region));
+            list.add(toDTO(region));
         }
         return list;
     }
@@ -56,4 +73,29 @@ public class RegionService {
         return dtoList;
     }
 
+
+
+    public List<RegionDTO> getAllByLang2(Language lang) {
+        List<RegionMapper> mapperList = regionRepository.findAll(lang.name());
+        List<RegionDTO> dtoList = new LinkedList<>();
+        for (RegionMapper entity : mapperList) {
+            RegionDTO dto = new RegionDTO();
+            dto.setId(entity.getId());
+            dto.setName(entity.getName());
+            dtoList.add(dto);
+        }
+        return dtoList;
+    }
+
+    public  RegionDTO toDTO(RegionEntity entity){
+        RegionDTO dto = new RegionDTO();
+        dto.setId(entity.getId());
+        dto.setName_uz(entity.getName_uz());
+        dto.setName_en(entity.getName_en());
+        dto.setName_ru(entity.getName_ru());
+        dto.setVisible(entity.getVisible());
+        dto.setOrderNumber(entity.getOrderNumber());
+        dto.setCreatedDate(entity.getCreatedDate());
+        return dto;
+    }
 }

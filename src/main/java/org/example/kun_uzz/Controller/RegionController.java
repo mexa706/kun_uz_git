@@ -34,5 +34,14 @@ public class RegionController {
         return ResponseEntity.ok().body(response);
     }
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Boolean> updateRegion(@PathVariable("id") Integer id,
+                                                @Valid  @RequestBody RegionCreateDTO dto) {
+        Boolean result = regionService.update(id, dto);
+        return ResponseEntity.ok().body(result);
+    }
+
+
+
 
 }
