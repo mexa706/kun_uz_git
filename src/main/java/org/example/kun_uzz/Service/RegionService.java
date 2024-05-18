@@ -1,16 +1,17 @@
 package org.example.kun_uzz.Service;
 
 
-
 import org.example.kun_uzz.DTO.RegionCreateDTO;
 import org.example.kun_uzz.DTO.RegionDTO;
 import org.example.kun_uzz.Entity.RegionEntity;
+import org.example.kun_uzz.Enums.Language;
 import org.example.kun_uzz.mapper.RegionMapper;
 import org.example.kun_uzz.repository.RegionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -34,15 +35,25 @@ public class RegionService {
         Iterable<RegionEntity> regions = regionRepository.findAll();
         List<RegionDTO> list = new ArrayList<>();
         for (RegionEntity region : regions) {
-            RegionDTO regionDTO = new RegionDTO();
-            regionDTO.setId(region.getId());
-            regionDTO.setCreatedDate(region.getCreatedDate());
-            regionDTO.setVisible(region.isVisible());
-            regionDTO.setName_uz(region.getName_uz());
-            regionDTO.setName_ru(region.getName_ru());
-            regionDTO.setName_en(region.getName_en());
-
+            list.add(RegionMapper.toDTO(region));
         }
-    return list;
+        return list;
     }
+
+    public List<RegionDTO> getAllByLang(Language lang) {
+        Iterable<RegionEntity> iterable = regionRepository.findAllByVisibleTrueOrderByOrderNumberDesc();
+        List<RegionDTO> dtoList = new LinkedList<>();
+        for (RegionEntity entity : iterable) {
+            RegionDTO dto = new RegionDTO();
+            dto.setId(entity.getId());
+            switch (lang) {
+                case en -> dto.setName(entity.getName_en());
+                case uz -> dto.setName(entity.getName_uz());
+                case ru -> dto.setName(entity.getName_ru());
+            }
+            dtoList.add(dto);
+        }
+        return dtoList;
+    }
+
 }

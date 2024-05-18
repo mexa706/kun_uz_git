@@ -13,6 +13,7 @@ public class RegionDTO {
     private String name_uz;
     private String name_ru;
     private String name_en;
-    private boolean visible;
+    private Boolean visible;
+    private String name;
     private LocalDateTime createdDate;
 }

@@ -4,7 +4,14 @@ Content-Type: application/json
 
 {
   "orderNumber": 1,
-  "nameUz": "Region1 uz",
-  "nameEn": "Region1 en",
-  "nameRu": "Region1 ru"
+  "nameUz": "Almazor uz",
+  "nameEn": "Almazar en",
+  "nameRu": "Алмазар ru"
 }
+
+### Get all
+GET localhost:8081/region/all
+
+### Get all by lang
+GET localhost:8081/region/lang
+Accept-Language:ru

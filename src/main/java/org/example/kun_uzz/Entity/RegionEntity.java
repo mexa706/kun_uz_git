@@ -23,7 +23,7 @@ public class RegionEntity {
     @Column(name="order_number")
     private Integer orderNumber;
     @Column(name = "visible")
-    private boolean visible = Boolean.TRUE;
+    private Boolean visible = Boolean.TRUE;
     @Column(name = "created_date")
     private LocalDateTime createdDate = LocalDateTime.now();
 
