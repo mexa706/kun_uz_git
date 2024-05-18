@@ -20,8 +20,10 @@ public class RegionEntity {
     private String name_ru;
     @Column(name = "name_en")
     private String name_en;
+    @Column(name="order_number")
+    private Integer orderNumber;
     @Column(name = "visible")
-    private boolean visible = true;
+    private boolean visible = Boolean.TRUE;
     @Column(name = "created_date")
     private LocalDateTime createdDate = LocalDateTime.now();
 
