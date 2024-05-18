@@ -1,8 +1,10 @@
 package org.example.kun_uzz.Service;
 
-import com.company.kunuz.DTO.RegionDTO;
-import com.company.kunuz.Entity.RegionEntity;
-import com.company.kunuz.repository.RegionRepository;
+
+
+import org.example.kun_uzz.DTO.RegionDTO;
+import org.example.kun_uzz.Entity.RegionEntity;
+import org.example.kun_uzz.repository.RegionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
