@@ -40,6 +40,11 @@ public class RegionController {
         Boolean result = regionService.update(id, dto);
         return ResponseEntity.ok().body(result);
     }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Boolean> deleteRegion(@PathVariable("id") Integer id) {
+        Boolean result = regionService.delete(id);
+        return ResponseEntity.ok().body(result);
+    }
 
 
 

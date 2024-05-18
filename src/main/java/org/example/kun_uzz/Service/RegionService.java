@@ -40,6 +40,13 @@ public class RegionService {
         regionRepository.save(entity);
         return true;
     }
+    public Boolean delete(Integer id) {
+      /*  RegionEntity entity = get(id);
+        regionRepository.delete(entity);*/
+        regionRepository.deleteById(id);
+        return true;
+    }
+
 
     public RegionEntity get(Integer id) {
         return regionRepository.findById(id).orElseThrow(() -> {
